@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "cybs_client/version"
+require "cybs_client/cybs/version"
 
 Gem::Specification.new do |s|
   s.name        = "cybs_client"
-  s.version     = CybsClient::VERSION
+  s.version     = CybsClient::Cybs::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["CyberSource Dev"]
   s.email       = ["developer@cybersource.com"]

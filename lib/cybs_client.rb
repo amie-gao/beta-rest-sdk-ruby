@@ -1,10 +1,10 @@
 # Swagger common files
-require 'cybs_client/'
-require 'cybs_client/configuration'
-require 'cybs_client/api_error'
-require 'cybs_client/request'
-require 'cybs_client/response'
-require 'cybs_client/version'
+require 'cybs_client/cybs'
+require 'cybs_client/cybs/configuration'
+require 'cybs_client/cybs/api_error'
+require 'cybs_client/cybs/request'
+require 'cybs_client/cybs/response'
+require 'cybs_client/cybs/version'
 
 # Models
 require 'cybs_client/models/base_object'
@@ -153,6 +153,6 @@ require 'cybs_client/api/captures_api'
 
 module CybsClient
   # Initialize the default configuration
-  Swagger.configuration = Swagger::Configuration.new
-  Swagger.configure { |config| }
+  Cybs.configuration = Cybs::Configuration.new
+  Cybs.configure { |config| }
 end
