@@ -10,8 +10,8 @@ auth_request = {
       }
   }
 CybsClient::Cybs.configure do |config|
-  config.api_key = 'UW0PVCI9HZPKX0MTTVKK21aITLpibHVsDhNttZrXlZiE95EsI'
-  config.secret_key = 'YHmA0pG9B6RmA7zZLS6h1$Q-1zaS6C#ESJFYXkm$'
+  config.api_key = ''
+  config.secret_key = ''
 end
 
 sale = CybsClient::SalesApi.sale(auth_request)
