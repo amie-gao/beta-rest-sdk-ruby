@@ -2,7 +2,7 @@ require 'uri'
 require 'typhoeus'
 
 module CybsClient
-  module Swagger
+  module Cybs
     class Request
       attr_accessor :host, :path, :format, :params, :body, :http_method, :headers, :form_params, :auth_names, :response
 
@@ -14,36 +14,22 @@ module CybsClient
 
         attributes.each { |name, value| send "#{name}=", value }
 
-        @format ||= Swagger.configuration.format
+        @format ||= Cybs.configuration.format
         @params ||= {}
+        @params[:apiKey] = Cybs.configuration.api_key
+        query_string = 'apiKey=' + Cybs.configuration.api_key
 
         # Apply default headers
-        @headers = Swagger.configuration.default_headers.merge(@headers || {})
+        @headers = Cybs.configuration.default_headers.merge(@headers || {})
+        headers['x-pay-token'] = get_xpay_token(path, query_string, body)
 
-        # Stick in the auth token if there is one
-        if Swagger.authenticated?
-          @headers.merge!({:auth_token => Swagger.configuration.auth_token})
-        end
-        
-      end
-
-      
-
-      # Get API key (with prefix if set).
-      # @param [String] param_name the parameter name of API key auth
-      def get_api_key_with_prefix(param_name)
-        if Swagger.configuration.api_key_prefix[param_name]
-          "#{Swagger.configuration.api_key_prefix[param_name]} #{Swagger.configuration.api_key[param_name]}"
-        else
-          Swagger.configuration.api_key[param_name]
-        end
       end
 
       # Construct the request URL.
       def url(options = {})
         _path = self.interpreted_path
         _path = "/#{_path}" unless _path.start_with?('/')
-        "#{Swagger.configuration.scheme}://#{Swagger.configuration.host}#{_path}"
+        "#{Cybs.configuration.scheme}://#{Cybs.configuration.host}#{_path}"
       end
 
       # Iterate over the params hash, injecting any path values into the path string
@@ -54,7 +40,7 @@ module CybsClient
         # Stick a .{format} placeholder into the path if there isn't
         # one already or an actual format like json or xml
         # e.g. /words/blah => /words.{format}/blah
-        if Swagger.configuration.inject_format
+        if Cybs.configuration.inject_format
           unless ['.json', '.xml', '{format}'].any? {|s| p.downcase.include? s }
             p = p.sub(/^(\/?\w+)/, "\\1.#{format}")
           end
@@ -63,7 +49,7 @@ module CybsClient
         # Stick a .{format} placeholder on the end of the path if there isn't
         # one already or an actual format like json or xml
         # e.g. /words/blah => /words/blah.{format}
-        if Swagger.configuration.force_ending_format
+        if Cybs.configuration.force_ending_format
           unless ['.json', '.xml', '{format}'].any? {|s| p.downcase.include? s }
             p = "#{p}.#{format}"
           end
@@ -71,7 +57,7 @@ module CybsClient
 
         p = p.sub("{format}", self.format.to_s)
 
-        URI.encode [Swagger.configuration.base_path, p].join("/").gsub(/\/+/, '/')
+        URI.encode [Cybs.configuration.base_path, p].join("/").gsub(/\/+/, '/')
       end
 
       # If body is an object, JSONify it before making the actual request.
@@ -89,8 +75,8 @@ module CybsClient
           data = nil
         end
 
-        if Swagger.configuration.debug
-          Swagger.logger.debug "HTTP request body param ~BEGIN~\n#{data}\n~END~\n"
+        if Cybs.configuration.debug
+          Cybs.logger.debug "HTTP request body param ~BEGIN~\n#{data}\n~END~\n"
         end
 
         data
@@ -101,9 +87,9 @@ module CybsClient
           :method => self.http_method,
           :headers => self.headers,
           :params => self.params,
-          :ssl_verifypeer => Swagger.configuration.verify_ssl,
-          :cainfo => Swagger.configuration.ssl_ca_cert,
-          :verbose => Swagger.configuration.debug
+          :ssl_verifypeer => Cybs.configuration.verify_ssl,
+          :cainfo => Cybs.configuration.ssl_ca_cert,
+          :verbose => Cybs.configuration.debug
         }
 
         if [:post, :patch, :put, :delete].include?(self.http_method)
@@ -113,12 +99,12 @@ module CybsClient
         raw = Typhoeus::Request.new(self.url, request_options).run
         @response = Response.new(raw)
 
-        if Swagger.configuration.debug
-          Swagger.logger.debug "HTTP response body ~BEGIN~\n#{@response.body}\n~END~\n"
+        if Cybs.configuration.debug
+          Cybs.logger.debug "HTTP response body ~BEGIN~\n#{@response.body}\n~END~\n"
         end
 
         # record as last response
-        Swagger.last_response = @response
+        Cybs.last_response = @response
 
         unless @response.success?
           fail ApiError.new(:code => @response.code,
@@ -190,6 +176,14 @@ module CybsClient
         else
           obj
         end
+      end
+
+      def get_xpay_token(resource_path, query_string, request_body)
+        require 'digest'
+        timestamp = Time.now.getutc.to_i.to_s
+        hash_input = Cybs.configuration.secret_key + timestamp + resource_path + query_string + request_body
+        hash_output = Digest::SHA256.hexdigest(hash_input)
+        return "x:" + timestamp + ":" + hash_output
       end
 
     end

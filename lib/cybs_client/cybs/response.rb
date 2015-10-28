@@ -1,5 +1,5 @@
 module CybsClient
-  module Swagger
+  module Cybs
     class Response
       require 'json'
       require 'date'
@@ -39,7 +39,7 @@ module CybsClient
         # ensuring a default content type
         content_type = raw.headers['Content-Type'] || 'application/json'
 
-        unless content_type.start_with?('application/json')
+        unless (content_type.start_with?('application/json') || content_type.start_with?('application/hal+json'))
           fail "Content-Type is not supported: #{content_type}"
         end
 
@@ -101,7 +101,7 @@ module CybsClient
       # @see Configuration#temp_folder_path
       # @return [File] the file downloaded
       def download_file
-        tmp_file = Tempfile.new '', Swagger.configuration.temp_folder_path
+        tmp_file = Tempfile.new '', Cybs.configuration.temp_folder_path
         content_disposition = raw.headers['Content-Disposition']
         if content_disposition
           filename = content_disposition[/filename=['"]?([^'"\s]+)['"]?/, 1]
@@ -113,7 +113,7 @@ module CybsClient
         tmp_file.close!
 
         File.open(path, 'w') { |file| file.write(raw.body) }
-        Swagger.logger.info "File written to #{path}. Please move the file to a proper folder for further processing and delete the temp afterwards"
+        Cybs.logger.info "File written to #{path}. Please move the file to a proper folder for further processing and delete the temp afterwards"
         return File.new(path)
       end
 

@@ -5,31 +5,15 @@ module CybsClient
     class Configuration
       attr_accessor :scheme, :host, :base_path, :user_agent, :format, :auth_token, :inject_format, :force_ending_format
 
-      # Defines the username used with HTTP basic authentication.
+      # Defines the API key for authentication
       #
       # @return [String]
-      attr_accessor :username
-
-      # Defines the password used with HTTP basic authentication.
-      #
-      # @return [String]
-      attr_accessor :password
-
-      # Defines API keys used with API Key authentications.
-      #
-      # @return [Hash] key: parameter name, value: parameter value (API key)
-      #
-      # @example parameter name is "api_key", API key is "xxx" (e.g. "api_key=xxx" in query string)
-      #   config.api_key['api_key'] = 'xxx'
       attr_accessor :api_key
 
-      # Defines API key prefixes used with API Key authentications.
+      # Defines the secret key for authentication
       #
-      # @return [Hash] key: parameter name, value: API key prefix
-      #
-      # @example parameter name is "Authorization", API key prefix is "Token" (e.g. "Authorization: Token xxx" in headers)
-      #   config.api_key_prefix['api_key'] = 'Token'
-      attr_accessor :api_key_prefix
+      # @return [String]
+      attr_accessor :secret_key
 
       # Set this to false to skip verifying SSL certificate when calling API from https server.
       # Default to true.
@@ -78,7 +62,7 @@ module CybsClient
         @scheme = 'https'
         @host = 'sandbox.api.visa.com/cybersource'
         @base_path = '/'
-        @user_agent = "ruby-swagger-#{Cybs::VERSION}"
+        @user_agent = "beta-sdk-ruby-#{Cybs::VERSION}"
         @inject_format = false
         @force_ending_format = false
 
@@ -87,9 +71,8 @@ module CybsClient
           'User-Agent' => @user_agent
         }
 
-        # keys for API key authentication (param-name => api-key)
-        @api_key = {}
-        @api_key_prefix = {}
+        @api_key = ''
+        @secret_key = ''
 
         @verify_ssl = true
 

@@ -1,9 +1,7 @@
 require "uri"
 
 module CybsClient
-
   class VoidsApi
-
 
     # Void a capture transaction
     # 
@@ -12,8 +10,8 @@ module CybsClient
     # @option opts [VoidRequest] :void_request Void request data
     # @return [Void]
     def self.do_capture_void(id, opts = {})
-      if Swagger.configuration.debug
-        Swagger.logger.debug "Calling API: VoidsApi#do_capture_void ..."
+      if Cybs.configuration.debug
+        Cybs.logger.debug "Calling API: VoidsApi#do_capture_void ..."
       end
       
       # verify the required parameter 'id' is set
@@ -30,28 +28,27 @@ module CybsClient
 
       # HTTP header 'Accept' (if needed)
       _header_accept = []
-      _header_accept_result = Swagger::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
+      _header_accept_result = Cybs::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
 
       # HTTP header 'Content-Type'
       _header_content_type = []
-      header_params['Content-Type'] = Swagger::Request.select_header_content_type(_header_content_type)
+      header_params['Content-Type'] = Cybs::Request.select_header_content_type(_header_content_type)
 
       # form parameters
       form_params = {}
 
       # http body (model)
-      post_body = Swagger::Request.object_to_http_body(opts[:'void_request'])
+      post_body = Cybs::Request.object_to_http_body(opts[:'void_request'])
       
 
       auth_names = []
-      response = Swagger::Request.new(:POST, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
+      response = Cybs::Request.new(:POST, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
       result = response.deserialize('Void')
-      if Swagger.configuration.debug
-        Swagger.logger.debug "API called: VoidsApi#do_capture_void. Result: #{result.inspect}"
+      if Cybs.configuration.debug
+        Cybs.logger.debug "API called: VoidsApi#do_capture_void. Result: #{result.inspect}"
       end
       result
     end
-
 
     # Void a refund transaction
     # 
@@ -60,8 +57,8 @@ module CybsClient
     # @option opts [VoidRequest] :void_request Void request data
     # @return [Void]
     def self.do_refund_void(id, opts = {})
-      if Swagger.configuration.debug
-        Swagger.logger.debug "Calling API: VoidsApi#do_refund_void ..."
+      if Cybs.configuration.debug
+        Cybs.logger.debug "Calling API: VoidsApi#do_refund_void ..."
       end
       
       # verify the required parameter 'id' is set
@@ -78,28 +75,27 @@ module CybsClient
 
       # HTTP header 'Accept' (if needed)
       _header_accept = []
-      _header_accept_result = Swagger::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
+      _header_accept_result = Cybs::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
 
       # HTTP header 'Content-Type'
       _header_content_type = []
-      header_params['Content-Type'] = Swagger::Request.select_header_content_type(_header_content_type)
+      header_params['Content-Type'] = Cybs::Request.select_header_content_type(_header_content_type)
 
       # form parameters
       form_params = {}
 
       # http body (model)
-      post_body = Swagger::Request.object_to_http_body(opts[:'void_request'])
+      post_body = Cybs::Request.object_to_http_body(opts[:'void_request'])
       
 
       auth_names = []
-      response = Swagger::Request.new(:POST, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
+      response = Cybs::Request.new(:POST, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
       result = response.deserialize('Void')
-      if Swagger.configuration.debug
-        Swagger.logger.debug "API called: VoidsApi#do_refund_void. Result: #{result.inspect}"
+      if Cybs.configuration.debug
+        Cybs.logger.debug "API called: VoidsApi#do_refund_void. Result: #{result.inspect}"
       end
       result
     end
-
 
     # Void a sale transaction
     # 
@@ -108,8 +104,8 @@ module CybsClient
     # @option opts [VoidRequest] :void_request Void request data
     # @return [Void]
     def self.do_sale_void(id, opts = {})
-      if Swagger.configuration.debug
-        Swagger.logger.debug "Calling API: VoidsApi#do_sale_void ..."
+      if Cybs.configuration.debug
+        Cybs.logger.debug "Calling API: VoidsApi#do_sale_void ..."
       end
       
       # verify the required parameter 'id' is set
@@ -126,28 +122,27 @@ module CybsClient
 
       # HTTP header 'Accept' (if needed)
       _header_accept = []
-      _header_accept_result = Swagger::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
+      _header_accept_result = Cybs::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
 
       # HTTP header 'Content-Type'
       _header_content_type = []
-      header_params['Content-Type'] = Swagger::Request.select_header_content_type(_header_content_type)
+      header_params['Content-Type'] = Cybs::Request.select_header_content_type(_header_content_type)
 
       # form parameters
       form_params = {}
 
       # http body (model)
-      post_body = Swagger::Request.object_to_http_body(opts[:'void_request'])
+      post_body = Cybs::Request.object_to_http_body(opts[:'void_request'])
       
 
       auth_names = []
-      response = Swagger::Request.new(:POST, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
+      response = Cybs::Request.new(:POST, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
       result = response.deserialize('Void')
-      if Swagger.configuration.debug
-        Swagger.logger.debug "API called: VoidsApi#do_sale_void. Result: #{result.inspect}"
+      if Cybs.configuration.debug
+        Cybs.logger.debug "API called: VoidsApi#do_sale_void. Result: #{result.inspect}"
       end
       result
     end
-
 
     # Retrieve a void
     # 
@@ -155,8 +150,8 @@ module CybsClient
     # @param [Hash] opts the optional parameters
     # @return [Void]
     def self.get_void(id, opts = {})
-      if Swagger.configuration.debug
-        Swagger.logger.debug "Calling API: VoidsApi#get_void ..."
+      if Cybs.configuration.debug
+        Cybs.logger.debug "Calling API: VoidsApi#get_void ..."
       end
       
       # verify the required parameter 'id' is set
@@ -173,11 +168,11 @@ module CybsClient
 
       # HTTP header 'Accept' (if needed)
       _header_accept = []
-      _header_accept_result = Swagger::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
+      _header_accept_result = Cybs::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
 
       # HTTP header 'Content-Type'
       _header_content_type = []
-      header_params['Content-Type'] = Swagger::Request.select_header_content_type(_header_content_type)
+      header_params['Content-Type'] = Cybs::Request.select_header_content_type(_header_content_type)
 
       # form parameters
       form_params = {}
@@ -187,14 +182,12 @@ module CybsClient
       
 
       auth_names = []
-      response = Swagger::Request.new(:GET, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
+      response = Cybs::Request.new(:GET, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
       result = response.deserialize('Void')
-      if Swagger.configuration.debug
-        Swagger.logger.debug "API called: VoidsApi#get_void. Result: #{result.inspect}"
+      if Cybs.configuration.debug
+        Cybs.logger.debug "API called: VoidsApi#get_void. Result: #{result.inspect}"
       end
       result
     end
-
   end
-
 end
