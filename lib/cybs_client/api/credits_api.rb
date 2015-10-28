@@ -1,9 +1,7 @@
 require "uri"
 
 module CybsClient
-
   class CreditsApi
-
 
     # Retrieve all Credits
     # 
@@ -12,8 +10,8 @@ module CybsClient
     # @option opts [Integer] :limit limit
     # @return [Array<ListCreditResponse>]
     def self.get_credits(opts = {})
-      if Swagger.configuration.debug
-        Swagger.logger.debug "Calling API: CreditsApi#get_credits ..."
+      if Cybs.configuration.debug
+        Cybs.logger.debug "Calling API: CreditsApi#get_credits ..."
       end
       
       # resource path
@@ -29,11 +27,11 @@ module CybsClient
 
       # HTTP header 'Accept' (if needed)
       _header_accept = []
-      _header_accept_result = Swagger::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
+      _header_accept_result = Cybs::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
 
       # HTTP header 'Content-Type'
       _header_content_type = []
-      header_params['Content-Type'] = Swagger::Request.select_header_content_type(_header_content_type)
+      header_params['Content-Type'] = Cybs::Request.select_header_content_type(_header_content_type)
 
       # form parameters
       form_params = {}
@@ -43,14 +41,13 @@ module CybsClient
       
 
       auth_names = []
-      response = Swagger::Request.new(:GET, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
+      response = Cybs::Request.new(:GET, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
       result = response.deserialize('Array<ListCreditResponse>')
-      if Swagger.configuration.debug
-        Swagger.logger.debug "API called: CreditsApi#get_credits. Result: #{result.inspect}"
+      if Cybs.configuration.debug
+        Cybs.logger.debug "API called: CreditsApi#get_credits. Result: #{result.inspect}"
       end
       result
     end
-
 
     # Post a Credit
     # Creates a new Credit
@@ -58,8 +55,8 @@ module CybsClient
     # @param [Hash] opts the optional parameters
     # @return [CreditPostResponse]
     def self.post_credit(credit_request, opts = {})
-      if Swagger.configuration.debug
-        Swagger.logger.debug "Calling API: CreditsApi#post_credit ..."
+      if Cybs.configuration.debug
+        Cybs.logger.debug "Calling API: CreditsApi#post_credit ..."
       end
       
       # verify the required parameter 'credit_request' is set
@@ -76,28 +73,27 @@ module CybsClient
 
       # HTTP header 'Accept' (if needed)
       _header_accept = []
-      _header_accept_result = Swagger::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
+      _header_accept_result = Cybs::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
 
       # HTTP header 'Content-Type'
       _header_content_type = []
-      header_params['Content-Type'] = Swagger::Request.select_header_content_type(_header_content_type)
+      header_params['Content-Type'] = Cybs::Request.select_header_content_type(_header_content_type)
 
       # form parameters
       form_params = {}
 
       # http body (model)
-      post_body = Swagger::Request.object_to_http_body(credit_request)
+      post_body = Cybs::Request.object_to_http_body(credit_request)
       
 
       auth_names = []
-      response = Swagger::Request.new(:POST, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
+      response = Cybs::Request.new(:POST, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
       result = response.deserialize('CreditPostResponse')
-      if Swagger.configuration.debug
-        Swagger.logger.debug "API called: CreditsApi#post_credit. Result: #{result.inspect}"
+      if Cybs.configuration.debug
+        Cybs.logger.debug "API called: CreditsApi#post_credit. Result: #{result.inspect}"
       end
       result
     end
-
 
     # Retrieve a Credit
     # 
@@ -105,8 +101,8 @@ module CybsClient
     # @param [Hash] opts the optional parameters
     # @return [CreditGetResponse]
     def self.find_credit(id, opts = {})
-      if Swagger.configuration.debug
-        Swagger.logger.debug "Calling API: CreditsApi#find_credit ..."
+      if Cybs.configuration.debug
+        Cybs.logger.debug "Calling API: CreditsApi#find_credit ..."
       end
       
       # verify the required parameter 'id' is set
@@ -123,11 +119,11 @@ module CybsClient
 
       # HTTP header 'Accept' (if needed)
       _header_accept = []
-      _header_accept_result = Swagger::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
+      _header_accept_result = Cybs::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
 
       # HTTP header 'Content-Type'
       _header_content_type = []
-      header_params['Content-Type'] = Swagger::Request.select_header_content_type(_header_content_type)
+      header_params['Content-Type'] = Cybs::Request.select_header_content_type(_header_content_type)
 
       # form parameters
       form_params = {}
@@ -137,14 +133,13 @@ module CybsClient
       
 
       auth_names = []
-      response = Swagger::Request.new(:GET, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
+      response = Cybs::Request.new(:GET, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
       result = response.deserialize('CreditGetResponse')
-      if Swagger.configuration.debug
-        Swagger.logger.debug "API called: CreditsApi#find_credit. Result: #{result.inspect}"
+      if Cybs.configuration.debug
+        Cybs.logger.debug "API called: CreditsApi#find_credit. Result: #{result.inspect}"
       end
       result
     end
-
 
     # Void a credit
     # Void a credit
@@ -153,8 +148,8 @@ module CybsClient
     # @option opts [VoidRequest] :void_request Void request data
     # @return [CreditResponseWithSelfLink]
     def self.do_credit_void(id, opts = {})
-      if Swagger.configuration.debug
-        Swagger.logger.debug "Calling API: CreditsApi#do_credit_void ..."
+      if Cybs.configuration.debug
+        Cybs.logger.debug "Calling API: CreditsApi#do_credit_void ..."
       end
       
       # verify the required parameter 'id' is set
@@ -171,28 +166,26 @@ module CybsClient
 
       # HTTP header 'Accept' (if needed)
       _header_accept = []
-      _header_accept_result = Swagger::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
+      _header_accept_result = Cybs::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
 
       # HTTP header 'Content-Type'
       _header_content_type = []
-      header_params['Content-Type'] = Swagger::Request.select_header_content_type(_header_content_type)
+      header_params['Content-Type'] = Cybs::Request.select_header_content_type(_header_content_type)
 
       # form parameters
       form_params = {}
 
       # http body (model)
-      post_body = Swagger::Request.object_to_http_body(opts[:'void_request'])
+      post_body = Cybs::Request.object_to_http_body(opts[:'void_request'])
       
 
       auth_names = []
-      response = Swagger::Request.new(:POST, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
+      response = Cybs::Request.new(:POST, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
       result = response.deserialize('CreditResponseWithSelfLink')
-      if Swagger.configuration.debug
-        Swagger.logger.debug "API called: CreditsApi#do_credit_void. Result: #{result.inspect}"
+      if Cybs.configuration.debug
+        Cybs.logger.debug "API called: CreditsApi#do_credit_void. Result: #{result.inspect}"
       end
       result
     end
-
   end
-
 end

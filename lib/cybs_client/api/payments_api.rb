@@ -1,9 +1,7 @@
 require "uri"
 
 module CybsClient
-
   class PaymentsApi
-
 
     # Transaction Search
     # Transaction search
@@ -13,8 +11,8 @@ module CybsClient
     # @option opts [Integer] :limit This paging parameter is used to specify the page size, i.e. number of records.
     # @return [TransactionSearch]
     def self.search_payment(search_request, opts = {})
-      if Swagger.configuration.debug
-        Swagger.logger.debug "Calling API: PaymentsApi#search_payment ..."
+      if Cybs.configuration.debug
+        Cybs.logger.debug "Calling API: PaymentsApi#search_payment ..."
       end
       
       # verify the required parameter 'search_request' is set
@@ -33,28 +31,27 @@ module CybsClient
 
       # HTTP header 'Accept' (if needed)
       _header_accept = ['application/json']
-      _header_accept_result = Swagger::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
+      _header_accept_result = Cybs::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
 
       # HTTP header 'Content-Type'
       _header_content_type = []
-      header_params['Content-Type'] = Swagger::Request.select_header_content_type(_header_content_type)
+      header_params['Content-Type'] = Cybs::Request.select_header_content_type(_header_content_type)
 
       # form parameters
       form_params = {}
 
       # http body (model)
-      post_body = Swagger::Request.object_to_http_body(search_request)
+      post_body = Cybs::Request.object_to_http_body(search_request)
       
 
       auth_names = []
-      response = Swagger::Request.new(:POST, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
+      response = Cybs::Request.new(:POST, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
       result = response.deserialize('TransactionSearch')
-      if Swagger.configuration.debug
-        Swagger.logger.debug "API called: PaymentsApi#search_payment. Result: #{result.inspect}"
+      if Cybs.configuration.debug
+        Cybs.logger.debug "API called: PaymentsApi#search_payment. Result: #{result.inspect}"
       end
       result
     end
-
 
     # Get submitted authorizations, sales, captures, or refunds
     # The payments endpoint returns information about your submitted payments. The response includes transaction details.
@@ -62,8 +59,8 @@ module CybsClient
     # @param [Hash] opts the optional parameters
     # @return [Transaction]
     def self.get_payment(id, opts = {})
-      if Swagger.configuration.debug
-        Swagger.logger.debug "Calling API: PaymentsApi#get_payment ..."
+      if Cybs.configuration.debug
+        Cybs.logger.debug "Calling API: PaymentsApi#get_payment ..."
       end
       
       # verify the required parameter 'id' is set
@@ -80,11 +77,11 @@ module CybsClient
 
       # HTTP header 'Accept' (if needed)
       _header_accept = ['application/json']
-      _header_accept_result = Swagger::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
+      _header_accept_result = Cybs::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
 
       # HTTP header 'Content-Type'
       _header_content_type = []
-      header_params['Content-Type'] = Swagger::Request.select_header_content_type(_header_content_type)
+      header_params['Content-Type'] = Cybs::Request.select_header_content_type(_header_content_type)
 
       # form parameters
       form_params = {}
@@ -94,14 +91,12 @@ module CybsClient
       
 
       auth_names = []
-      response = Swagger::Request.new(:GET, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
+      response = Cybs::Request.new(:GET, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
       result = response.deserialize('Transaction')
-      if Swagger.configuration.debug
-        Swagger.logger.debug "API called: PaymentsApi#get_payment. Result: #{result.inspect}"
+      if Cybs.configuration.debug
+        Cybs.logger.debug "API called: PaymentsApi#get_payment. Result: #{result.inspect}"
       end
       result
     end
-
   end
-
 end

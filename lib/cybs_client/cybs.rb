@@ -29,39 +29,9 @@ module CybsClient
 
         # remove http(s):// and anything after a slash
         configuration.host.sub!(/https?:\/\//, '')
-        configuration.host = configuration.host.split('/').first
 
         # Add leading and trailing slashes to base_path
-        configuration.base_path = "/#{configuration.base_path}".gsub(/\/+/, '/')
         configuration.base_path = "" if configuration.base_path == "/"
-      end
-
-      def authenticated?
-        !Cybs.configuration.auth_token.nil?
-      end
-
-      def de_authenticate
-        Cybs.configuration.auth_token = nil
-      end
-
-      def authenticate
-        return if Cybs.authenticated?
-
-        if Cybs.configuration.username.nil? || Cybs.configuration.password.nil?
-          raise ApiError, "Username and password are required to authenticate."
-        end
-
-        request = Cybs::Request.new(
-          :get,
-          "account/authenticate/{username}",
-          :params => {
-            :username => Cybs.configuration.username,
-            :password => Cybs.configuration.password
-          }
-        )
-
-        response_body = request.response.body
-        Cybs.configuration.auth_token = response_body['token']
       end
 
       def last_response

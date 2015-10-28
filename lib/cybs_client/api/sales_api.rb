@@ -1,9 +1,7 @@
 require "uri"
 
 module CybsClient
-
   class SalesApi
-
 
     # Search for all sales
     # Search for all sales
@@ -12,8 +10,8 @@ module CybsClient
     # @option opts [Integer] :limit Page size
     # @return [Array<ListSaleResponse>]
     def self.find_sales(opts = {})
-      if Swagger.configuration.debug
-        Swagger.logger.debug "Calling API: SalesApi#find_sales ..."
+      if Cybs.configuration.debug
+        Cybs.logger.debug "Calling API: SalesApi#find_sales ..."
       end
       
       # resource path
@@ -29,11 +27,11 @@ module CybsClient
 
       # HTTP header 'Accept' (if needed)
       _header_accept = []
-      _header_accept_result = Swagger::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
+      _header_accept_result = Cybs::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
 
       # HTTP header 'Content-Type'
       _header_content_type = []
-      header_params['Content-Type'] = Swagger::Request.select_header_content_type(_header_content_type)
+      header_params['Content-Type'] = Cybs::Request.select_header_content_type(_header_content_type)
 
       # form parameters
       form_params = {}
@@ -43,14 +41,13 @@ module CybsClient
       
 
       auth_names = []
-      response = Swagger::Request.new(:GET, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
+      response = Cybs::Request.new(:GET, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
       result = response.deserialize('Array<ListSaleResponse>')
-      if Swagger.configuration.debug
-        Swagger.logger.debug "API called: SalesApi#find_sales. Result: #{result.inspect}"
+      if Cybs.configuration.debug
+        Cybs.logger.debug "API called: SalesApi#find_sales. Result: #{result.inspect}"
       end
       result
     end
-
 
     # Perform a sale
     # Perform a sale
@@ -58,8 +55,8 @@ module CybsClient
     # @param [Hash] opts the optional parameters
     # @return [SalePostResponse]
     def self.sale(auth_capture_request, opts = {})
-      if Swagger.configuration.debug
-        Swagger.logger.debug "Calling API: SalesApi#sale ..."
+      if Cybs.configuration.debug
+        Cybs.logger.debug "Calling API: SalesApi#sale ..."
       end
       
       # verify the required parameter 'auth_capture_request' is set
@@ -76,28 +73,27 @@ module CybsClient
 
       # HTTP header 'Accept' (if needed)
       _header_accept = []
-      _header_accept_result = Swagger::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
+      _header_accept_result = Cybs::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
 
       # HTTP header 'Content-Type'
       _header_content_type = []
-      header_params['Content-Type'] = Swagger::Request.select_header_content_type(_header_content_type)
+      header_params['Content-Type'] = Cybs::Request.select_header_content_type(_header_content_type)
 
       # form parameters
       form_params = {}
 
       # http body (model)
-      post_body = Swagger::Request.object_to_http_body(auth_capture_request)
+      post_body = Cybs::Request.object_to_http_body(auth_capture_request)
       
 
       auth_names = []
-      response = Swagger::Request.new(:POST, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
+      response = Cybs::Request.new(:POST, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
       result = response.deserialize('SalePostResponse')
-      if Swagger.configuration.debug
-        Swagger.logger.debug "API called: SalesApi#sale. Result: #{result.inspect}"
+      if Cybs.configuration.debug
+        Cybs.logger.debug "API called: SalesApi#sale. Result: #{result.inspect}"
       end
       result
     end
-
 
     # Search for a specific sale
     # Search for sale given an id
@@ -105,8 +101,8 @@ module CybsClient
     # @param [Hash] opts the optional parameters
     # @return [SaleGetResponse]
     def self.find_sale(id, opts = {})
-      if Swagger.configuration.debug
-        Swagger.logger.debug "Calling API: SalesApi#find_sale ..."
+      if Cybs.configuration.debug
+        Cybs.logger.debug "Calling API: SalesApi#find_sale ..."
       end
       
       # verify the required parameter 'id' is set
@@ -123,11 +119,11 @@ module CybsClient
 
       # HTTP header 'Accept' (if needed)
       _header_accept = []
-      _header_accept_result = Swagger::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
+      _header_accept_result = Cybs::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
 
       # HTTP header 'Content-Type'
       _header_content_type = []
-      header_params['Content-Type'] = Swagger::Request.select_header_content_type(_header_content_type)
+      header_params['Content-Type'] = Cybs::Request.select_header_content_type(_header_content_type)
 
       # form parameters
       form_params = {}
@@ -137,14 +133,12 @@ module CybsClient
       
 
       auth_names = []
-      response = Swagger::Request.new(:GET, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
+      response = Cybs::Request.new(:GET, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
       result = response.deserialize('SaleGetResponse')
-      if Swagger.configuration.debug
-        Swagger.logger.debug "API called: SalesApi#find_sale. Result: #{result.inspect}"
+      if Cybs.configuration.debug
+        Cybs.logger.debug "API called: SalesApi#find_sale. Result: #{result.inspect}"
       end
       result
     end
-
   end
-
 end

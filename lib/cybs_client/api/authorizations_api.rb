@@ -1,9 +1,7 @@
 require "uri"
 
 module CybsClient
-
   class AuthorizationsApi
-
 
     # Retrieve all authorizations
     # Search for all authorizations
@@ -12,8 +10,8 @@ module CybsClient
     # @option opts [Integer] :limit This paging parameter is used to specify the page size, i.e. number of records.
     # @return [AuthorizationCollection]
     def self.find_authorizations(opts = {})
-      if Swagger.configuration.debug
-        Swagger.logger.debug "Calling API: AuthorizationsApi#find_authorizations ..."
+      if Cybs.configuration.debug
+        Cybs.logger.debug "Calling API: AuthorizationsApi#find_authorizations ..."
       end
       
       # resource path
@@ -29,11 +27,11 @@ module CybsClient
 
       # HTTP header 'Accept' (if needed)
       _header_accept = []
-      _header_accept_result = Swagger::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
+      _header_accept_result = Cybs::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
 
       # HTTP header 'Content-Type'
       _header_content_type = []
-      header_params['Content-Type'] = Swagger::Request.select_header_content_type(_header_content_type)
+      header_params['Content-Type'] = Cybs::Request.select_header_content_type(_header_content_type)
 
       # form parameters
       form_params = {}
@@ -43,14 +41,13 @@ module CybsClient
       
 
       auth_names = []
-      response = Swagger::Request.new(:GET, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
+      response = Cybs::Request.new(:GET, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
       result = response.deserialize('AuthorizationCollection')
-      if Swagger.configuration.debug
-        Swagger.logger.debug "API called: AuthorizationsApi#find_authorizations. Result: #{result.inspect}"
+      if Cybs.configuration.debug
+        Cybs.logger.debug "API called: AuthorizationsApi#find_authorizations. Result: #{result.inspect}"
       end
       result
     end
-
 
     # Create an authorized payment
     # Create an authorized payment
@@ -58,8 +55,8 @@ module CybsClient
     # @param [Hash] opts the optional parameters
     # @return [Authorization]
     def self.authorize_payment(auth_request, opts = {})
-      if Swagger.configuration.debug
-        Swagger.logger.debug "Calling API: AuthorizationsApi#authorize_payment ..."
+      if Cybs.configuration.debug
+        Cybs.logger.debug "Calling API: AuthorizationsApi#authorize_payment ..."
       end
       
       # verify the required parameter 'auth_request' is set
@@ -76,28 +73,27 @@ module CybsClient
 
       # HTTP header 'Accept' (if needed)
       _header_accept = []
-      _header_accept_result = Swagger::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
+      _header_accept_result = Cybs::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
 
       # HTTP header 'Content-Type'
       _header_content_type = []
-      header_params['Content-Type'] = Swagger::Request.select_header_content_type(_header_content_type)
+      header_params['Content-Type'] = Cybs::Request.select_header_content_type(_header_content_type)
 
       # form parameters
       form_params = {}
 
       # http body (model)
-      post_body = Swagger::Request.object_to_http_body(auth_request)
+      post_body = Cybs::Request.object_to_http_body(auth_request)
       
 
       auth_names = []
-      response = Swagger::Request.new(:POST, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
+      response = Cybs::Request.new(:POST, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
       result = response.deserialize('Authorization')
-      if Swagger.configuration.debug
-        Swagger.logger.debug "API called: AuthorizationsApi#authorize_payment. Result: #{result.inspect}"
+      if Cybs.configuration.debug
+        Cybs.logger.debug "API called: AuthorizationsApi#authorize_payment. Result: #{result.inspect}"
       end
       result
     end
-
 
     # Search for a specific authorization
     # Search for authorization given an id
@@ -105,8 +101,8 @@ module CybsClient
     # @param [Hash] opts the optional parameters
     # @return [Authorization]
     def self.find_authorization(id, opts = {})
-      if Swagger.configuration.debug
-        Swagger.logger.debug "Calling API: AuthorizationsApi#find_authorization ..."
+      if Cybs.configuration.debug
+        Cybs.logger.debug "Calling API: AuthorizationsApi#find_authorization ..."
       end
       
       # verify the required parameter 'id' is set
@@ -123,11 +119,11 @@ module CybsClient
 
       # HTTP header 'Accept' (if needed)
       _header_accept = []
-      _header_accept_result = Swagger::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
+      _header_accept_result = Cybs::Request.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
 
       # HTTP header 'Content-Type'
       _header_content_type = []
-      header_params['Content-Type'] = Swagger::Request.select_header_content_type(_header_content_type)
+      header_params['Content-Type'] = Cybs::Request.select_header_content_type(_header_content_type)
 
       # form parameters
       form_params = {}
@@ -137,14 +133,12 @@ module CybsClient
       
 
       auth_names = []
-      response = Swagger::Request.new(:GET, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
+      response = Cybs::Request.new(:GET, path, {:params => query_params, :headers => header_params, :form_params => form_params, :body => post_body, :auth_names => auth_names}).make
       result = response.deserialize('Authorization')
-      if Swagger.configuration.debug
-        Swagger.logger.debug "API called: AuthorizationsApi#find_authorization. Result: #{result.inspect}"
+      if Cybs.configuration.debug
+        Cybs.logger.debug "API called: AuthorizationsApi#find_authorization. Result: #{result.inspect}"
       end
       result
     end
-
   end
-
 end
